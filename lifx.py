@@ -1,8 +1,10 @@
 import requests
 
+# Enter token
 token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 headers = { "Authorization": "Bearer %s" % token,}
 
+# allows you to choose between different functions
 def menu():
     print()
     print('0. exit')
@@ -47,32 +49,38 @@ def myMenu():
             choice = menu()
     print()
 
-
+# turn light on function
 def turn_on(headers):
     payload = {"power": "on",}
     response = requests.put('https://api.lifx.com/v1/lights/all/state', data=payload, headers=headers)
-
+    
+# turn light off function
 def turn_off(headers):
     payload = {"power": "off",}
     response = requests.put('https://api.lifx.com/v1/lights/all/state', data=payload, headers=headers)
 
+# toggle power option
 def toggle_power(headers):
     response = requests.post('https://api.lifx.com/v1/lights/all/toggle', headers=headers)
 
+# breathe effect function
 def breath_effect(headers):
     data = {"period": 6, "cycles": 6,"color": "blue",}
     response = requests.post('https://api.lifx.com/v1/lights/all/effects/breathe', data=data, headers=headers)
 
+# pulse effect function
 def pulse_effect(headers):
     data = {"period": 2, "cycles": 5, "color": "green",}
     response = requests.post('https://api.lifx.com/v1/lights/all/effects/pulse', data=data, headers=headers)
 
+# set brightness function (0 - 10)
 def set_brightness(headers):
     amount = float(input("Enter brightness betwwen 0 and 10: "))
     divisor = amount/10
     payload = {"power": "on", "brightness": divisor}
     response = requests.put('https://api.lifx.com/v1/lights/all/state', data=payload, headers=headers)
 
+# set color function e.g. blue, green, yellow, red
 def set_color(headers):
     color = str(input("Enter a color: "))
     payload = {"power": "on", "color": color}
